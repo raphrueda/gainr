@@ -16,16 +16,12 @@ const pool = new Pool({
 
     //#region Users
     console.log('Creating users table...');
-    const test = await pool.query(
-        `
+    await pool.query(`
     CREATE TABLE IF NOT EXISTS users(
         id SERIAL PRIMARY KEY,
         username VARCHAR(30) UNIQUE,
         email VARCHAR(255) UNIQUE,
         pw_hash TEXT
-    );
-    `,
-    );
-    console.log(test);
+    );`);
     //#endregion
 })();

@@ -1,4 +1,4 @@
-import { HTTPError } from './route.errors';
+import { HTTPError } from '../route.errors';
 
 export class UsernameExistsError extends HTTPError {
     message = 'Username already exists';

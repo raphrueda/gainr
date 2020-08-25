@@ -6,7 +6,9 @@
   "author": "Raphael Rueda",
   "license": "MIT",
   "scripts": {
-    "test": "echo 'Testing Bicep'"
+    "start": "nodemon",
+    "test": "echo 'Testing Bicep'",
+    "build:db": "ts-node infrastructure/db.ts"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -16,7 +18,9 @@
     "pg": "^8.3.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/express": "^4.17.7",
+    "@types/pg": "^7.14.4",
     "joi": "^17.2.1",
     "nodemon": "^2.0.4",
     "ts-node": "^9.0.0",

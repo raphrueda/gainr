@@ -32,7 +32,7 @@ export const createUser = async (username: string, email: string, password: stri
  * @returns {true} if credentials match
  * @throws {LoginFailedDBError} password does not match saved hash
  */
-export const login = async (username, email, password) => {
+export const login = async (username: string, email: string, password: string) => {
     const providedField = username !== undefined ? 'username' : 'email';
     const providedFieldValue = username ?? email;
 

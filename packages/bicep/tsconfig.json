@@ -3,9 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@errors*": ["src/errors*"],
       "@db*": ["src/db*"],
-      "@utils*": ["src/utils*"]
+      "@routes*": ["src/routes*"],
     }
   },
   "include": ["src/**/*.ts"]

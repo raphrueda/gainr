@@ -2,13 +2,14 @@ import { Router } from 'express';
 import * as Joi from 'joi';
 
 import { createUser, login } from '@db/auth/auth.db';
-import { validate } from '@utils/routes.utils';
-import { UsernameExistsError, EmailExistsError, LoginFailedError } from '@errors/auth.errors';
 import {
     EmailExistsDBError,
     LoginFailedDBError,
     UsernameExistsDBError,
 } from '@db/auth/auth.db.errors';
+import { validate } from '@routes/route.utils';
+
+import { UsernameExistsError, EmailExistsError, LoginFailedError } from './auth.errors';
 
 export const auth = Router();
 
@@ -23,7 +24,7 @@ const signupSchema = Joi.object({
          * - Contains at least one uppercase letter
          * - Contains at least one of the following: @#$%^&+=
          */
-        .regex(new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$/))
+        .regex(new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=]).*$/))
         .required(),
 });
 
