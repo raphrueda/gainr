@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "name": "gainr",
+  "description": "Workout app monorepo",
+  "author": "Raphael Rueda",
+  "license": "MIT",
+  "scripts": {
+    "test": "lerna run test"
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1",
+    "typescript": "^4.0.2"
+  }
+}

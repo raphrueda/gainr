@@ -1,0 +1,11 @@
+{
+  "name": "@gainr/bicep",
+  "version": "1.0.0",
+  "description": "Backend service for gainr",
+  "main": "index.js",
+  "author": "Raphael Rueda",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo 'Testing Bicep'"
+  }
+}

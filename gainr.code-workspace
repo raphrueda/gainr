@@ -1,0 +1,25 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "packages/bicep"
+        },
+        {
+            "path": "packages/rhomboid"
+        },
+    ],
+    "settings": {
+        "files.exclude": {
+            "packages": true
+        },
+        "search.exclude": {
+            "**/node_modules": true,
+        },
+    },
+    "extensions": {
+        "recommendations": [
+        ]
+    }
+}
