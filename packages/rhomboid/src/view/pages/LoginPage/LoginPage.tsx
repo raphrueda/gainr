@@ -61,6 +61,9 @@ export const LoginPage: React.FunctionComponent = () => {
                             name="usernameEmail"
                             label="Username/Email address"
                             margin="normal"
+                            validate={(value) =>
+                                value === 'forceError' ? 'Forced error' : undefined
+                            }
                             required
                             autoFocus
                         />
