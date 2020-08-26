@@ -1,0 +1,26 @@
+.stack{
+    display: flex;
+    flex-direction: column;
+
+    &__item {
+        &--spacing-xs {
+            margin-bottom: .125rem;
+        }
+
+        &--spacing-sm {
+            margin-bottom: .375rem;
+        }
+        
+        &--spacing-md {
+            margin-bottom: .75rem;
+        }
+
+        &--spacing-lg {
+            margin-bottom: 1rem;
+        }
+
+        &--spacing-xl {
+            margin-bottom: 1.5rem;
+        }
+    }
+}

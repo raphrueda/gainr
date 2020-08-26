@@ -1,0 +1,11 @@
+.login-page {
+    display: flex;
+    height: 100vh;
+    background: #eee;
+
+    &__login-section {
+        width: 350px;
+        margin: auto;
+        padding: 1rem;
+    }
+}

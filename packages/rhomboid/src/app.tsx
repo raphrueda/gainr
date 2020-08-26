@@ -1,10 +1,6 @@
-import { Button } from 'antd';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { MainPage } from './view/pages';
+import { Root } from './view/Root';
 
-import './styles/main.scss';
-import 'antd/dist/antd.css';
-
-ReactDOM.render(<MainPage />, document.getElementById('root'));
+ReactDOM.render(<Root />, document.getElementById('root'));
