@@ -27,6 +27,9 @@ const theme = createMuiTheme({
                 },
             },
         },
+        MuiAvatar: {
+            colorDefault: { color: 'white' },
+        },
     },
 });
 
