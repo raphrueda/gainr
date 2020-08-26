@@ -11,7 +11,7 @@ import {
     TextField,
     Typography,
 } from '@material-ui/core';
-import { LockOutlined } from '@material-ui/icons';
+import { FitnessCenter } from '@material-ui/icons';
 import * as React from 'react';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,14 +29,14 @@ const useStyles = makeStyles((theme) => ({
         padding: '2rem',
     },
     avatar: {
-        margin: theme.spacing(1),
+        margin: theme.spacing(2),
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
         marginTop: theme.spacing(1),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        margin: theme.spacing(1, 0, 2),
     },
 }));
 
@@ -48,9 +48,9 @@ export const LoginPage: React.FunctionComponent = () => {
             <Container className={styles.loginContainer} component="main" maxWidth="xs">
                 <Paper className={styles.paper}>
                     <Avatar className={styles.avatar}>
-                        <LockOutlined />
+                        <FitnessCenter fontSize="large" />
                     </Avatar>
-                    <Typography variant="h5">Sign in</Typography>
+                    <Typography variant="h4">Sign in</Typography>
                     <form className={styles.form} noValidate>
                         <TextField
                             variant="outlined"
@@ -76,6 +76,7 @@ export const LoginPage: React.FunctionComponent = () => {
                             fullWidth
                             variant="contained"
                             color="primary"
+                            size="large"
                             className={styles.submit}
                         >
                             Sign In

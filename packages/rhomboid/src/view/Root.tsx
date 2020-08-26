@@ -10,10 +10,13 @@ import '../styles/main.scss';
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#888B96',
+            main: '#4D4F56',
         },
         secondary: {
             main: '#2A7F62',
+        },
+        background: {
+            default: '#E1DEE3',
         },
     },
     overrides: {
@@ -37,6 +40,7 @@ export const Root: React.FunctionComponent = () => (
             <Switch>
                 <Route exact path="/" component={AppPage} />
                 <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/signup" component={LoginPage} />
                 <Redirect to="/login" />
             </Switch>
         </HashRouter>
