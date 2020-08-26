@@ -9,7 +9,13 @@ interface TextFieldProps extends BaseTextFieldProps {
 type TextFieldAllProps = TextFieldProps & FieldHookConfig<string>;
 
 export const TextField: React.FunctionComponent<TextFieldAllProps> = ({ onFocus, ...props }) => {
-    const [field, meta] = useField(props.name);
+    const [field, meta] = useField({
+        ...props,
+        validate: (val) => {
+            if (val === 'forceError') return 'Forced error';
+            return;
+        },
+    });
     return (
         <MaterialTextField
             // Formik field injections

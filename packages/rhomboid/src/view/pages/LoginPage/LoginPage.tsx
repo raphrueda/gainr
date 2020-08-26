@@ -76,12 +76,12 @@ export const LoginPage: React.FunctionComponent = () => {
                             label="Remember me"
                         />
                         <Button
+                            className={styles.submit}
                             type="submit"
-                            fullWidth
                             variant="contained"
                             color="primary"
                             size="large"
-                            className={styles.submit}
+                            fullWidth
                         >
                             Sign In
                         </Button>
