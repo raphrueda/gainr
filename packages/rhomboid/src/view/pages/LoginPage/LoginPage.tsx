@@ -8,11 +8,13 @@ import {
     Link,
     makeStyles,
     Paper,
-    TextField,
     Typography,
 } from '@material-ui/core';
 import { FitnessCenter } from '@material-ui/icons';
+import { Form, Formik } from 'formik';
 import * as React from 'react';
+
+import { TextField } from '../../components/form';
 
 const useStyles = makeStyles((theme) => ({
     loginPage: {
@@ -51,49 +53,53 @@ export const LoginPage: React.FunctionComponent = () => {
                         <FitnessCenter fontSize="large" />
                     </Avatar>
                     <Typography variant="h4">Sign in</Typography>
-                    <form className={styles.form} noValidate>
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            label="Username/Email address"
-                            required
-                            fullWidth
-                            autoFocus
-                        />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            label="Password"
-                            required
-                            fullWidth
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            size="large"
-                            className={styles.submit}
-                        >
-                            Sign In
-                        </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
+                    <Formik
+                        initialValues={{ usernameEmail: '', password: '' }}
+                        onSubmit={(val) => alert(JSON.stringify(val))}
+                    >
+                        <Form className={styles.form} noValidate>
+                            <TextField
+                                name="usernameEmail"
+                                label="Username/Email address"
+                                margin="normal"
+                                required
+                                autoFocus
+                            />
+                            <TextField
+                                name="password"
+                                label="Password"
+                                type="password"
+                                margin="normal"
+                                required
+                            />
+                            <FormControlLabel
+                                control={<Checkbox value="remember" color="primary" />}
+                                label="Remember me"
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                size="large"
+                                className={styles.submit}
+                            >
+                                Sign In
+                            </Button>
+                            <Grid container>
+                                <Grid item xs>
+                                    <Link href="#" variant="body2">
+                                        Forgot password?
+                                    </Link>
+                                </Grid>
+                                <Grid item>
+                                    <Link href="#" variant="body2">
+                                        {"Don't have an account? Sign Up"}
+                                    </Link>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
-                    </form>
+                        </Form>
+                    </Formik>
                 </Paper>
             </Container>
         </div>
