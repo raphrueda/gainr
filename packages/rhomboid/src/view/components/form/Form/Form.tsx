@@ -4,11 +4,11 @@ import * as React from 'react';
 interface FormProps {
     className: string;
     initialValues: FormikValues;
-    onSubmit: FormikConfig<FormikValues>['onSubmit'];
+    onSubmit?: FormikConfig<FormikValues>['onSubmit'];
 }
 
 export const Form: React.FunctionComponent<FormProps> = ({ children, className, ...restProps }) => (
-    <Formik {...restProps}>
+    <Formik onSubmit={() => {}} {...restProps}>
         <FormikForm className={className}>{children}</FormikForm>
     </Formik>
 );
