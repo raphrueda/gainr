@@ -1,56 +1,100 @@
-import { Button, Link, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
+import {
+    Avatar,
+    Button,
+    Checkbox,
+    Container,
+    FormControlLabel,
+    Grid,
+    Link,
+    makeStyles,
+    Paper,
+    TextField,
+    Typography,
+} from '@material-ui/core';
+import { LockOutlined } from '@material-ui/icons';
 import * as React from 'react';
-
-import { Inline, InlineSpacing, Stack, StackSpacing } from '../../components/layout';
 
 const useStyles = makeStyles((theme) => ({
     loginPage: {
         display: 'flex',
         height: '100vh',
-        background: '#eee',
     },
-    loginPaper: {
-        width: '350px',
-        margin: 'auto',
-        padding: '1rem',
+    loginContainer: {
+        marginTop: theme.spacing(20),
+    },
+    paper: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '2rem',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
     },
 }));
 
 export const LoginPage: React.FunctionComponent = () => {
     const styles = useStyles();
+
     return (
         <div className={styles.loginPage}>
-            <Paper className={styles.loginPaper}>
-                <Stack spacing={StackSpacing.Large}>
-                    <Typography variant="h5">Hand stand</Typography>
-                    <TextField
-                        label="Username/email"
-                        size="small"
-                        variant="outlined"
-                        fullWidth
-                        required
-                    />
-                    <TextField
-                        label="Password"
-                        type="password"
-                        size="small"
-                        variant="outlined"
-                        fullWidth
-                        required
-                    />
-                    <Inline spacing={InlineSpacing.Medium} center pullRight>
-                        <Typography>
-                            <Link href="#/">Forgot password?</Link>
-                        </Typography>
-                        <Button variant="contained" color="default" size="medium">
-                            Signup
+            <Container className={styles.loginContainer} component="main" maxWidth="xs">
+                <Paper className={styles.paper}>
+                    <Avatar className={styles.avatar}>
+                        <LockOutlined />
+                    </Avatar>
+                    <Typography variant="h5">Sign in</Typography>
+                    <form className={styles.form} noValidate>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            label="Username/Email address"
+                            required
+                            fullWidth
+                            autoFocus
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            label="Password"
+                            required
+                            fullWidth
+                        />
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label="Remember me"
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={styles.submit}
+                        >
+                            Sign In
                         </Button>
-                        <Button variant="contained" color="primary" size="medium">
-                            Login
-                        </Button>
-                    </Inline>
-                </Stack>
-            </Paper>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href="#" variant="body2">
+                                    Forgot password?
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="#" variant="body2">
+                                    {"Don't have an account? Sign Up"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </Paper>
+            </Container>
         </div>
     );
 };

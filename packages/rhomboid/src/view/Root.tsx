@@ -8,6 +8,14 @@ import { LoginPage } from './pages/LoginPage/LoginPage';
 import '../styles/main.scss';
 
 const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#888B96',
+        },
+        secondary: {
+            main: '#2A7F62',
+        },
+    },
     overrides: {
         MuiCssBaseline: {
             '@global': {
