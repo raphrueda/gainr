@@ -13,7 +13,7 @@ import {
 import { FitnessCenter } from '@material-ui/icons';
 import * as React from 'react';
 
-import { Form, TextField } from '../../components/form';
+import { Form, TextField } from '@view/components';
 
 const useStyles = makeStyles((theme) => ({
     loginPage: {

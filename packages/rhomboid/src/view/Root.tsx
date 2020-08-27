@@ -2,8 +2,8 @@ import * as React from 'react';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import { AppPage } from './pages/AppPage/AppPage';
-import { LoginPage } from './pages/LoginPage/LoginPage';
+import { AppPage } from '@pages/AppPage/AppPage';
+import { LoginPage } from '@pages/LoginPage/LoginPage';
 
 import '../styles/main.scss';
 

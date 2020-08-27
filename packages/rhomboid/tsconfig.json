@@ -1,5 +1,13 @@
 {
   "extends": "../../tsconfig.json",
-  "compilerOptions": { "module": "ESNext", "jsx": "react" },
+  "compilerOptions": { 
+    "module": "ESNext", 
+    "jsx": "react", 
+    "baseUrl": "./",
+    "paths": {
+      "@components*": ["src/view/components*"],
+      "@pages*": ["src/view/pages*"],
+    },
+  },
   "include": ["src/**/*"]
 }
