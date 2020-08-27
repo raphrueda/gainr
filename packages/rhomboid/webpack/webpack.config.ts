@@ -18,6 +18,10 @@ const webpackConfig: Configuration = {
     ],
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
+        alias: {
+            '@pages': packagePath('src/view/pages'),
+            '@components': packagePath('src/view/components'),
+        },
     },
     module: {
         rules: [
