@@ -1,3 +1,4 @@
+import * as cors from 'cors';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { config } from 'dotenv';
@@ -7,6 +8,7 @@ import { baseRouter } from '@routes/';
 const app = express();
 
 //#region Middleware
+app.use(cors());
 app.use(bodyParser.json());
 //#endregion
 
