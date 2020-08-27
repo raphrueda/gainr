@@ -4,6 +4,7 @@ import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import { AppPage } from '@pages/AppPage';
 import { LoginPage } from '@pages/LoginPage';
+import { SignUpPage } from '@pages/SignUpPage';
 
 import '../styles/main.scss';
 
@@ -43,7 +44,7 @@ export const Root: React.FunctionComponent = () => (
             <Switch>
                 <Route exact path="/" component={AppPage} />
                 <Route exact path="/login" component={LoginPage} />
-                <Route exact path="/signup" component={LoginPage} />
+                <Route exact path="/signup" component={SignUpPage} />
                 <Redirect to="/login" />
             </Switch>
         </HashRouter>

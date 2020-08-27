@@ -1,9 +1,7 @@
 import {
     Avatar,
     Button,
-    Checkbox,
     Container,
-    FormControlLabel,
     Grid,
     Link,
     makeStyles,
@@ -16,11 +14,11 @@ import * as React from 'react';
 import { Form, TextField } from '@components/form';
 
 const useStyles = makeStyles((theme) => ({
-    loginPage: {
+    signUpPage: {
         display: 'flex',
         height: '100vh',
     },
-    loginContainer: {
+    signUpContainer: {
         marginTop: theme.spacing(20),
     },
     paper: {
@@ -37,46 +35,42 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1),
     },
     submit: {
-        margin: theme.spacing(1, 0, 2),
+        margin: theme.spacing(2, 0, 2),
     },
 }));
 
-export const LoginPage: React.FunctionComponent = () => {
+export const SignUpPage: React.FunctionComponent = () => {
     const styles = useStyles();
 
     return (
-        <div className={styles.loginPage}>
-            <Container className={styles.loginContainer} component="main" maxWidth="xs">
+        <div className={styles.signUpPage}>
+            <Container className={styles.signUpContainer} component="main" maxWidth="xs">
                 <Paper className={styles.paper}>
                     <Avatar className={styles.avatar}>
                         <FitnessCenter fontSize="large" />
                     </Avatar>
-                    <Typography variant="h4">Sign in</Typography>
+                    <Typography variant="h4">Sign up</Typography>
                     <Form
                         className={styles.form}
-                        initialValues={{ usernameEmail: '', password: '' }}
+                        initialValues={{}}
                         onSubmit={(val) => alert(JSON.stringify(val))}
                     >
+                        <Grid container spacing={1}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField name="firstName" label="First name" autoFocus />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField name="lastName" label="Last name" autoFocus />
+                            </Grid>
+                        </Grid>
+                        <TextField name="username" label="Username" />
+                        <TextField name="email" label="Email address" required />
+                        <TextField name="password" label="Password" type="password" required />
                         <TextField
-                            name="usernameEmail"
-                            label="Username/Email address"
-                            margin="normal"
-                            validate={(value) =>
-                                value === 'forceError' ? 'Forced error' : undefined
-                            }
-                            required
-                            autoFocus
-                        />
-                        <TextField
-                            name="password"
-                            label="Password"
+                            name="confirmPassword"
+                            label="Confirm password"
                             type="password"
-                            margin="normal"
                             required
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
                         />
                         <Button
                             className={styles.submit}
@@ -86,17 +80,12 @@ export const LoginPage: React.FunctionComponent = () => {
                             size="large"
                             fullWidth
                         >
-                            Sign in
+                            Sign up
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
+                        <Grid container justify="flex-end">
                             <Grid item>
-                                <Link href="#/signup" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                <Link href="#/login" variant="body2">
+                                    Already have an account? Sign in
                                 </Link>
                             </Grid>
                         </Grid>
