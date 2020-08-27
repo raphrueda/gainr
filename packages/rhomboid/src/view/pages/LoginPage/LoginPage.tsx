@@ -14,6 +14,8 @@ import { FitnessCenter } from '@material-ui/icons';
 import * as React from 'react';
 
 import { Form, TextField } from '@components/form';
+import { useAxios } from '@utils/api';
+import { AxiosRequestConfig } from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     loginPage: {
@@ -41,8 +43,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const axiosConfig: AxiosRequestConfig = { url: 'http://localhost:9002/a', method: 'GET' };
+
 export const LoginPage: React.FunctionComponent = () => {
     const styles = useStyles();
+
+    const [{ loading, data, error }] = useAxios(axiosConfig);
+
+    if (loading) {
+        return <div>loading...</div>;
+    }
+
+    if (error) {
+        console.log(error);
+        return <div>error!</div>;
+    }
+
+    console.log(data);
 
     return (
         <div className={styles.loginPage}>

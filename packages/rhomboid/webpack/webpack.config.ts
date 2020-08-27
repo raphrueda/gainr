@@ -21,6 +21,7 @@ const webpackConfig: Configuration = {
         alias: {
             '@pages': packagePath('src/view/pages'),
             '@components': packagePath('src/view/components'),
+            '@utils': packagePath('src/utils'),
         },
     },
     module: {
