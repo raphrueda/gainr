@@ -56,7 +56,7 @@ export const LoginPage: React.FunctionComponent = () => {
 
     const [{ loading, data, error }, login] = useAxios(axiosConfig, { initialFetch: false });
 
-    console.log(data);
+    if (!loading && data) console.log(data);
 
     return (
         <div className={styles.loginPage}>
@@ -68,12 +68,11 @@ export const LoginPage: React.FunctionComponent = () => {
                     <Typography variant="h4">Sign in</Typography>
                     {error && (
                         <Alert className={styles.alert} severity="error">
-                            Something went wrong :c
+                            Login failed.
                         </Alert>
                     )}
                     <Form
                         className={styles.form}
-                        initialValues={{ usernameEmail: '', password: '' }}
                         onSubmit={(formValues) =>
                             login({
                                 username: formValues.usernameEmail,
