@@ -11,6 +11,7 @@ import {
     Typography,
 } from '@material-ui/core';
 import { FitnessCenter } from '@material-ui/icons';
+import { Alert } from '@material-ui/lab';
 import * as React from 'react';
 
 import { Form, TextField } from '@components/form';
@@ -31,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         padding: '2rem',
     },
+    alert: {
+        marginTop: theme.spacing(1),
+        width: '100%',
+    },
     avatar: {
         margin: theme.spacing(2),
         backgroundColor: theme.palette.secondary.main,
@@ -43,23 +48,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const axiosConfig: AxiosRequestConfig = { url: 'http://localhost:9002/', method: 'GET' };
+const axiosConfig: AxiosRequestConfig = { url: 'http://localhost:9002/auth/login', method: 'POST' };
 
 export const LoginPage: React.FunctionComponent = () => {
     const styles = useStyles();
 
-    const [{ loading, data, error }, fetch] = useAxios(axiosConfig, { initialFetch: false });
+    const [config, setConfig] = React.useState(axiosConfig);
+    const [{ loading, data, error }] = useAxios(config);
 
     if (loading) {
-        return <div>loading...</div>;
-    }
-
-    if (error) {
-        return <div>error!</div>;
-    }
-
-    if (!data) {
-        fetch();
+        return <div>TODO: Fancy loading pattern</div>;
     }
 
     return (
@@ -70,10 +68,23 @@ export const LoginPage: React.FunctionComponent = () => {
                         <FitnessCenter fontSize="large" />
                     </Avatar>
                     <Typography variant="h4">Sign in</Typography>
+                    {error && (
+                        <Alert className={styles.alert} severity="error">
+                            Something went wrong :c
+                        </Alert>
+                    )}
                     <Form
                         className={styles.form}
                         initialValues={{ usernameEmail: '', password: '' }}
-                        onSubmit={(val) => alert(JSON.stringify(val))}
+                        onSubmit={(formValues) =>
+                            setConfig({
+                                ...config,
+                                data: {
+                                    username: formValues.usernameEmail,
+                                    password: formValues.password,
+                                },
+                            })
+                        }
                     >
                         <TextField
                             name="usernameEmail"
