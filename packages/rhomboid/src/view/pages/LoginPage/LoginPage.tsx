@@ -43,23 +43,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const axiosConfig: AxiosRequestConfig = { url: 'http://localhost:9002/a', method: 'GET' };
+const axiosConfig: AxiosRequestConfig = { url: 'http://localhost:9002/', method: 'GET' };
 
 export const LoginPage: React.FunctionComponent = () => {
     const styles = useStyles();
 
-    const [{ loading, data, error }] = useAxios(axiosConfig);
+    const [{ loading, data, error }, fetch] = useAxios(axiosConfig, { initialFetch: false });
 
     if (loading) {
         return <div>loading...</div>;
     }
 
     if (error) {
-        console.log(error);
         return <div>error!</div>;
     }
 
-    console.log(data);
+    if (!data) {
+        fetch();
+    }
 
     return (
         <div className={styles.loginPage}>

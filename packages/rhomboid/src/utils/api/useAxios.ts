@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useEffect, useReducer } from 'react';
 
@@ -44,27 +45,39 @@ type Reducer<TData, TError> = (
     action: AxiosReducerAction<TData, TError>,
 ) => AxiosReducerState<TData, TError>;
 
+interface UseAxiosOptions {
+    initialFetch: boolean;
+}
+
 export const useAxios = <TData = any, TError = any>(
     config: AxiosRequestConfig,
-): [AxiosReducerState<TData, TError>] => {
+    options: UseAxiosOptions = { initialFetch: true },
+): [AxiosReducerState<TData, TError>, () => Promise<void>] => {
+    const { initialFetch } = options;
+
     const [state, dispatch] = useReducer<Reducer<TData, TError>>(axiosReducer, {
-        loading: true,
+        loading: initialFetch,
     });
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const response: AxiosResponse<TData> = await axios(config);
-                dispatch({ type: AxiosReducerActionType.Success, payload: response.data });
-            } catch (error) {
-                if (error.isAxiosError) {
-                    dispatch({ type: AxiosReducerActionType.Failed, payload: error });
-                    return;
-                }
-                throw error;
+    const fetch = async () => {
+        try {
+            dispatch({ type: AxiosReducerActionType.Pending });
+            const response: AxiosResponse<TData> = await axios(config);
+            dispatch({ type: AxiosReducerActionType.Success, payload: response.data });
+        } catch (error) {
+            if (error.isAxiosError) {
+                dispatch({ type: AxiosReducerActionType.Failed, payload: error });
+                return;
             }
-        })();
-    }, [config]);
+            throw error;
+        }
+    };
 
-    return [state];
+    if (initialFetch) {
+        useEffect(() => {
+            fetch();
+        }, [config]);
+    }
+
+    return [state, fetch];
 };
