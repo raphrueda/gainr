@@ -9,8 +9,11 @@ import {
     Typography,
 } from '@material-ui/core';
 import { FitnessCenter } from '@material-ui/icons';
+import { Alert } from '@material-ui/lab';
+import { AxiosRequestConfig } from 'axios';
 import * as React from 'react';
 
+import { useAxios } from '@utils/api';
 import { Form, TextField } from '@components/form';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         padding: '2rem',
     },
+    alert: {
+        marginTop: theme.spacing(1),
+        width: '100%',
+    },
     avatar: {
         margin: theme.spacing(2),
         backgroundColor: theme.palette.secondary.main,
@@ -39,8 +46,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const axiosConfig: AxiosRequestConfig = {
+    url: 'http://localhost:9002/auth/signup',
+    method: 'POST',
+};
+
 export const SignUpPage: React.FunctionComponent = () => {
     const styles = useStyles();
+    const [{ loading, data, error }, register] = useAxios(axiosConfig, { initialFetch: false });
+
+    if (!loading && data) console.log(data);
 
     return (
         <div className={styles.signUpPage}>
@@ -50,10 +65,20 @@ export const SignUpPage: React.FunctionComponent = () => {
                         <FitnessCenter fontSize="large" />
                     </Avatar>
                     <Typography variant="h4">Sign up</Typography>
+                    {error && (
+                        <Alert className={styles.alert} severity="error">
+                            Sign up failed.
+                        </Alert>
+                    )}
                     <Form
                         className={styles.form}
-                        initialValues={{}}
-                        onSubmit={(val) => alert(JSON.stringify(val))}
+                        onSubmit={({ username, email, password }) =>
+                            register({
+                                username,
+                                email,
+                                password,
+                            })
+                        }
                     >
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={6}>
