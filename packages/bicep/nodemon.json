@@ -2,7 +2,7 @@
     "verbose": true,
     "debug": false,
     "inspect": true,
-    "exec": "node --inspect -r ts-node/register -r tsconfig-paths/register ./src/app.ts",
+    "exec": "node -r ts-node/register -r tsconfig-paths/register ./src/app.ts",
     "ignore": ["node_modules"],
     "watch": ["./src", ".env"],
     "ext": "ts"

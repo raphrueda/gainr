@@ -2,6 +2,7 @@ import {
     Avatar,
     Button,
     Checkbox,
+    CircularProgress,
     Container,
     FormControlLabel,
     Grid,
@@ -53,12 +54,9 @@ const axiosConfig: AxiosRequestConfig = { url: 'http://localhost:9002/auth/login
 export const LoginPage: React.FunctionComponent = () => {
     const styles = useStyles();
 
-    const [config, setConfig] = React.useState(axiosConfig);
-    const [{ loading, data, error }] = useAxios(config);
+    const [{ loading, data, error }, login] = useAxios(axiosConfig, { initialFetch: false });
 
-    if (loading) {
-        return <div>TODO: Fancy loading pattern</div>;
-    }
+    console.log(data);
 
     return (
         <div className={styles.loginPage}>
@@ -77,12 +75,9 @@ export const LoginPage: React.FunctionComponent = () => {
                         className={styles.form}
                         initialValues={{ usernameEmail: '', password: '' }}
                         onSubmit={(formValues) =>
-                            setConfig({
-                                ...config,
-                                data: {
-                                    username: formValues.usernameEmail,
-                                    password: formValues.password,
-                                },
+                            login({
+                                username: formValues.usernameEmail,
+                                password: formValues.password,
                             })
                         }
                     >
