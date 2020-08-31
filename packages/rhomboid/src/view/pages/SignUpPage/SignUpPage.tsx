@@ -88,8 +88,30 @@ export const SignUpPage: React.FunctionComponent = () => {
                                 <TextField name="lastName" label="Last name" autoFocus />
                             </Grid>
                         </Grid>
-                        <TextField name="username" label="Username" />
-                        <TextField name="email" label="Email address" required />
+                        <TextField
+                            name="username"
+                            label="Username"
+                            validate={(value: string) => {
+                                if (!value.match(/^[a-zA-Z0-9]*$/)) {
+                                    return 'Username must be alphanumeric.';
+                                }
+                                if (value.length > 30) {
+                                    return 'Username must be less than 30 characters.';
+                                }
+                                return;
+                            }}
+                        />
+                        <TextField
+                            name="email"
+                            label="Email address"
+                            validate={(value: string) => {
+                                if (!value.match(/^\S+@\S+$/)) {
+                                    return 'Email address is invalid.';
+                                }
+                                return;
+                            }}
+                            required
+                        />
                         <TextField name="password" label="Password" type="password" required />
                         <TextField
                             name="confirmPassword"
