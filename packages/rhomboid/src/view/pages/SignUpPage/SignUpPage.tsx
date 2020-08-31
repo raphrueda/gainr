@@ -112,7 +112,21 @@ export const SignUpPage: React.FunctionComponent = () => {
                             }}
                             required
                         />
-                        <TextField name="password" label="Password" type="password" required />
+                        <TextField
+                            name="password"
+                            label="Password"
+                            type="password"
+                            validate={(value: string) => {
+                                if (value.length < 8) {
+                                    return 'Password must be longer than 8 characters.';
+                                }
+                                if (!value.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/)) {
+                                    return 'Password must contain at least 1 number, 1 lowercase letter and 1 uppercase letter.';
+                                }
+                                return;
+                            }}
+                            required
+                        />
                         <TextField
                             name="confirmPassword"
                             label="Confirm password"
