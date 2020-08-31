@@ -17,8 +17,8 @@ export const TextField: React.FunctionComponent<TextFieldAllProps> = ({ onFocus,
             onChange={field.onChange as any}
             onBlur={field.onBlur as any}
             // Formik validation injections
-            error={!!meta.error}
-            helperText={meta.error}
+            error={meta.touched && !!meta.error}
+            helperText={meta.touched && meta.error}
             // TextField defaults
             variant="outlined"
             margin="dense"
