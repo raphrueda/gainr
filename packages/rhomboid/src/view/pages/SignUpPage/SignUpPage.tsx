@@ -79,6 +79,11 @@ export const SignUpPage: React.FunctionComponent = () => {
                                 password,
                             })
                         }
+                        validate={(values) => {
+                            if (values.password !== values.confirmPassword) {
+                                return { confirmPassword: 'Passwords do not match.' };
+                            }
+                        }}
                     >
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={6}>
@@ -92,6 +97,7 @@ export const SignUpPage: React.FunctionComponent = () => {
                             name="username"
                             label="Username"
                             validate={(value: string) => {
+                                if (!value) return;
                                 if (!value.match(/^[a-zA-Z0-9]*$/)) {
                                     return 'Username must be alphanumeric.';
                                 }
@@ -117,11 +123,12 @@ export const SignUpPage: React.FunctionComponent = () => {
                             label="Password"
                             type="password"
                             validate={(value: string) => {
-                                if (value.length < 8) {
-                                    return 'Password must be longer than 8 characters.';
-                                }
+                                if (!value) return;
                                 if (!value.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/)) {
                                     return 'Password must contain at least 1 number, 1 lowercase letter and 1 uppercase letter.';
+                                }
+                                if (value.length < 8) {
+                                    return 'Password must be longer than 8 characters.';
                                 }
                                 return;
                             }}

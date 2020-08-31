@@ -5,6 +5,7 @@ interface FormProps {
     className: string;
     initialValues?: FormikValues;
     onSubmit?: FormikConfig<FormikValues>['onSubmit'];
+    validate?: FormikConfig<FormikValues>['validate'];
 }
 
 export const Form: React.FunctionComponent<FormProps> = ({ children, className, ...restProps }) => (
