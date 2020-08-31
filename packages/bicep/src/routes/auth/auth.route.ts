@@ -24,7 +24,7 @@ const signupSchema = Joi.object({
          * - Contains at least one uppercase letter
          * - Contains at least one of the following: @#$%^&+=
          */
-        .regex(new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=]).*$/))
+        .regex(new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/))
         .required(),
 });
 
