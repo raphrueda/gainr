@@ -56,9 +56,18 @@ auth.post('/login', validate(loginSchema), async (req, res, next) => {
         next(error);
     });
     if (result && result.id !== undefined) {
-        if (!process.env?.ACCESS_TOKEN_SECRET) {
-            throw new Error('Something went wrong.');
+        if (!process.env?.ACCESS_TOKEN_SECRET || !process.env?.REFRESH_TOKEN_SECRET) {
+            console.error('Missing access and refresh secrets.');
+            next(new Error('Something went wrong.'));
+            return;
         }
+        res.cookie(
+            'rid',
+            sign({ userId: result.id }, process.env.REFRESH_TOKEN_SECRET, {
+                expiresIn: '7d',
+            }),
+            { httpOnly: true },
+        );
         const token = sign({ userId: result.id }, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: '15m',
         });
