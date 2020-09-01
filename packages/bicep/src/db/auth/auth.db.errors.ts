@@ -1,11 +1,20 @@
 export class UsernameExistsDBError extends Error {
-    message = 'Username already exists';
+    constructor() {
+        super('Username already exists');
+        Object.setPrototypeOf(this, UsernameExistsDBError.prototype);
+    }
 }
 
 export class EmailExistsDBError extends Error {
-    message = 'Email already exists';
+    constructor() {
+        super('Email already exists');
+        Object.setPrototypeOf(this, EmailExistsDBError.prototype);
+    }
 }
 
 export class LoginFailedDBError extends Error {
-    message = 'Login failed';
+    constructor() {
+        super('Login failed');
+        Object.setPrototypeOf(this, LoginFailedDBError.prototype);
+    }
 }
