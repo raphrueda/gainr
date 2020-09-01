@@ -25,13 +25,14 @@ router.get(
 
         try {
             const token = authToken.split(' ')[1];
-            verify(token, process.env.ACCESS_TOKEN_SECRET);
+            const payload = verify(token, process.env.ACCESS_TOKEN_SECRET) as Record<string, any>;
+            res.locals.userId = payload.userId;
         } catch (error) {
             throw new Error('Bad token.');
         }
         return next();
     },
-    (req, res) => res.send("You've accessed the super secret route"),
+    (req, res) => res.send(`You've accessed the super secret route, user ${res.locals.userId}`),
 );
 
 router.use('/auth', auth);
