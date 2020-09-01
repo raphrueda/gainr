@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import * as Joi from 'joi';
-import { sign } from 'jsonwebtoken';
 
 import { createUser, login } from '@db/auth/auth.db';
 import {
@@ -11,6 +10,7 @@ import {
 import { validate } from '@routes/route.utils';
 
 import { UsernameExistsError, EmailExistsError, LoginFailedError } from './auth.errors';
+import { generateAccessToken, generateRefreshToken } from './auth.utils';
 
 export const auth = Router();
 
@@ -56,21 +56,12 @@ auth.post('/login', validate(loginSchema), async (req, res, next) => {
         next(error);
     });
     if (result && result.id !== undefined) {
-        if (!process.env?.ACCESS_TOKEN_SECRET || !process.env?.REFRESH_TOKEN_SECRET) {
-            console.error('Missing access and refresh secrets.');
-            next(new Error('Something went wrong.'));
-            return;
+        try {
+            res.cookie('rid', generateRefreshToken(result.id, '7d'), { httpOnly: true });
+            const token = generateAccessToken(result.id, '15m');
+            res.status(200).json(token);
+        } catch (error) {
+            next(error);
         }
-        res.cookie(
-            'rid',
-            sign({ userId: result.id }, process.env.REFRESH_TOKEN_SECRET, {
-                expiresIn: '7d',
-            }),
-            { httpOnly: true },
-        );
-        const token = sign({ userId: result.id }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '15m',
-        });
-        res.status(200).json(token);
     }
 });
