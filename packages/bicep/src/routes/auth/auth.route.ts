@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as Joi from 'joi';
+import { sign } from 'jsonwebtoken';
 
 import { createUser, login } from '@db/auth/auth.db';
 import {
@@ -50,11 +51,17 @@ const loginSchema = Joi.object({
 
 auth.post('/login', validate(loginSchema), async (req, res, next) => {
     const { username, email, password } = req.body;
-    const success = await login(username, email, password).catch((error) => {
+    const result = await login(username, email, password).catch((error) => {
         if (error instanceof LoginFailedDBError) next(new LoginFailedError());
         next(error);
     });
-    if (success) {
-        res.status(200).json('Login successful.');
+    if (result && result.id !== undefined) {
+        if (!process.env?.ACCESS_TOKEN_SECRET) {
+            throw new Error('Something went wrong.');
+        }
+        const token = sign({ userId: result.id }, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: '15m',
+        });
+        res.status(200).json(token);
     }
 });

@@ -36,13 +36,13 @@ export const login = async (username: string, email: string, password: string) =
     const providedField = username !== undefined ? 'username' : 'email';
     const providedFieldValue = username ?? email;
 
-    const loginQuery = `SELECT pw_hash FROM ${Tables.Users} WHERE ${providedField}=$1`;
+    const loginQuery = `SELECT id, pw_hash FROM ${Tables.Users} WHERE ${providedField}=$1`;
     const result = await dbService.query(loginQuery, [providedFieldValue]);
     if (result.rowCount === 0) throw new LoginFailedDBError();
 
-    const { pw_hash } = result.rows[0];
+    const { id, pw_hash } = result.rows[0];
     const match = await compare(password, pw_hash);
     if (!match) throw new LoginFailedDBError();
 
-    return true;
+    return { id: id as number };
 };
