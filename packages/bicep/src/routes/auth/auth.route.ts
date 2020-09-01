@@ -51,17 +51,15 @@ const loginSchema = Joi.object({
 
 auth.post('/login', validate(loginSchema), async (req, res, next) => {
     const { username, email, password } = req.body;
-    const result = await login(username, email, password).catch((error) => {
-        if (error instanceof LoginFailedDBError) next(new LoginFailedError());
-        next(error);
-    });
-    if (result && result.id !== undefined) {
-        try {
+    try {
+        const result = await login(username, email, password);
+        if (result && result.id !== undefined) {
             res.cookie('rid', generateRefreshToken(result.id, '7d'), { httpOnly: true });
             const token = generateAccessToken(result.id, '15m');
             res.status(200).json(token);
-        } catch (error) {
-            next(error);
         }
+    } catch (error) {
+        if (error instanceof LoginFailedDBError) next(new LoginFailedError());
+        return next(error);
     }
 });
