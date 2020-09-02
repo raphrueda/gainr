@@ -1,3 +1,4 @@
+import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
@@ -10,6 +11,7 @@ const app = express();
 //#region Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser());
 //#endregion
 
 //#region Routes

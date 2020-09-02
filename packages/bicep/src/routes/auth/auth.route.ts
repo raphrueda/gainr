@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as Joi from 'joi';
+import { verify } from 'jsonwebtoken';
 
 import { createUser, login } from '@db/auth/auth.db';
 import {
@@ -52,14 +53,34 @@ const loginSchema = Joi.object({
 auth.post('/login', validate(loginSchema), async (req, res, next) => {
     const { username, email, password } = req.body;
     try {
-        const result = await login(username, email, password);
-        if (result && result.id !== undefined) {
-            res.cookie('rid', generateRefreshToken(result.id, '7d'), { httpOnly: true });
-            const token = generateAccessToken(result.id, '15m');
+        const { id } = await login(username, email, password);
+        if (id !== undefined) {
+            res.cookie('rid', generateRefreshToken(id), { httpOnly: true });
+            const token = generateAccessToken(id);
             res.status(200).json(token);
         }
     } catch (error) {
         if (error instanceof LoginFailedDBError) next(new LoginFailedError());
         return next(error);
+    }
+});
+
+auth.post('/refresh_token', (req, res) => {
+    const token = req.cookies.rid;
+    if (!token) {
+        res.status(400);
+        res.send('Missing refresh token.');
+    }
+    try {
+        // TODO Duplicated logic
+        if (!process.env?.REFRESH_TOKEN_SECRET) {
+            console.error('Missing refresh secret.');
+            throw new Error('Something went wrong.');
+        }
+        const payload = verify(token, process.env.REFRESH_TOKEN_SECRET) as any;
+        return res.status(200).json(generateAccessToken(payload.id));
+    } catch (error) {
+        console.log(error);
+        return res.send(500);
     }
 });
