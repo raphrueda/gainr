@@ -48,6 +48,7 @@ interface UseAxiosOptions {
     initialFetch: boolean;
 }
 
+// TODO Review use cases, perhaps mutations need a different promise based approach
 export const useAxios = <TData = any, TError = any>(
     config: AxiosRequestConfig,
     options: UseAxiosOptions = { initialFetch: true },
