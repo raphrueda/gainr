@@ -15,7 +15,7 @@ export const TextField: React.FunctionComponent<TextFieldAllProps> = ({ onFocus,
     return (
         <MaterialTextField
             // Formik field injections
-            value={field.value}
+            value={field.value || ''}
             onChange={field.onChange as any}
             onBlur={field.onBlur as any}
             // Formik validation injections
