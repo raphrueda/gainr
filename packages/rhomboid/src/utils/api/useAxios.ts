@@ -51,6 +51,7 @@ interface UseAxiosOptions {
 export const useAxios = <TData = any, TError = any>(
     config: AxiosRequestConfig,
     options: UseAxiosOptions = { initialFetch: true },
+    callback?: (data: TData) => void,
 ): [AxiosReducerState<TData, TError>, (data: AxiosRequestConfig['data']) => void] => {
     const { initialFetch } = options;
 
@@ -62,6 +63,7 @@ export const useAxios = <TData = any, TError = any>(
         try {
             dispatch({ type: AxiosReducerActionType.Pending });
             const response: AxiosResponse<TData> = await axios(config);
+            callback?.(response.data);
             dispatch({ type: AxiosReducerActionType.Success, payload: response.data });
         } catch (error) {
             if (error.isAxiosError) {

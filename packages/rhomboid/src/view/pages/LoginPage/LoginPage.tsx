@@ -17,6 +17,7 @@ import * as React from 'react';
 import { Form, TextField } from '@components/form';
 import { useAxios } from '@utils/api';
 import { AxiosRequestConfig } from 'axios';
+import { setAccessToken } from '@utils/api/access';
 
 const useStyles = makeStyles((theme) => ({
     loginPage: {
@@ -57,7 +58,9 @@ const axiosConfig: AxiosRequestConfig = {
 export const LoginPage: React.FunctionComponent = () => {
     const styles = useStyles();
 
-    const [{ error }, login] = useAxios(axiosConfig, { initialFetch: false });
+    const [{ error }, login] = useAxios(axiosConfig, { initialFetch: false }, (data) =>
+        setAccessToken(data),
+    );
 
     return (
         <div className={styles.loginPage}>
