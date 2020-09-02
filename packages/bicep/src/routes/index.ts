@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { verify } from 'jsonwebtoken';
+import { getEnvVar } from 'src/utils/common';
 
 import { auth } from './auth/auth.route';
 
@@ -17,15 +18,11 @@ router.get(
             throw new Error('Missing authorization token');
         }
 
-        // TODO: Duplicated route logic. Abstract into utils
-        if (!process.env?.ACCESS_TOKEN_SECRET) {
-            console.error('Missing access secret.');
-            throw new Error('Something went wrong.');
-        }
+        const accessTokenSecret = getEnvVar('ACCESS_TOKEN_SECRET');
 
         try {
             const token = authToken.split(' ')[1];
-            const payload = verify(token, process.env.ACCESS_TOKEN_SECRET) as Record<string, any>;
+            const payload = verify(token, accessTokenSecret) as Record<string, any>;
             res.locals.userId = payload.userId;
         } catch (error) {
             throw new Error('Bad token.');
