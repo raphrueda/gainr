@@ -2,7 +2,6 @@ import {
     Avatar,
     Button,
     Checkbox,
-    CircularProgress,
     Container,
     FormControlLabel,
     Grid,
@@ -49,14 +48,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const axiosConfig: AxiosRequestConfig = { url: 'http://localhost:9002/auth/login', method: 'POST' };
+const axiosConfig: AxiosRequestConfig = {
+    url: 'http://localhost:9002/auth/login',
+    method: 'POST',
+    withCredentials: true,
+};
 
 export const LoginPage: React.FunctionComponent = () => {
     const styles = useStyles();
 
-    const [{ loading, data, error }, login] = useAxios(axiosConfig, { initialFetch: false });
-
-    if (!loading && data) console.log(data);
+    const [{ error }, login] = useAxios(axiosConfig, { initialFetch: false });
 
     return (
         <div className={styles.loginPage}>

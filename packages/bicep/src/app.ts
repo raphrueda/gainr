@@ -9,7 +9,12 @@ import { baseRouter } from '@routes/';
 const app = express();
 
 //#region Middleware
-app.use(cors());
+app.use(
+    cors({
+        origin: 'http://localhost:8080',
+        credentials: true,
+    }),
+);
 app.use(bodyParser.json());
 app.use(cookieParser());
 //#endregion

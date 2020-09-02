@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useCallback, useEffect, useReducer } from 'react';
 
