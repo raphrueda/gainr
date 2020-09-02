@@ -11,6 +11,7 @@ const app = express();
 //#region Middleware
 app.use(
     cors({
+        // TODO figure out the proper way to set this
         origin: 'http://localhost:8080',
         credentials: true,
     }),
