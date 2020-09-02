@@ -10,6 +10,8 @@ type TextFieldAllProps = TextFieldProps & FieldHookConfig<string>;
 
 export const TextField: React.FunctionComponent<TextFieldAllProps> = ({ onFocus, ...props }) => {
     const [field, meta] = useField(props);
+    // Omit non material props
+    const { validate, ...restProps } = props;
     return (
         <MaterialTextField
             // Formik field injections
@@ -24,7 +26,7 @@ export const TextField: React.FunctionComponent<TextFieldAllProps> = ({ onFocus,
             margin="dense"
             fullWidth
             // User props
-            {...props}
+            {...restProps}
         />
     );
 };
