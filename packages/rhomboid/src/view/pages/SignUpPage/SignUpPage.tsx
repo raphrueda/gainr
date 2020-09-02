@@ -111,6 +111,7 @@ export const SignUpPage: React.FunctionComponent = () => {
                             name="email"
                             label="Email address"
                             validate={(value: string) => {
+                                if (!value) return;
                                 if (!value.match(/^\S+@\S+$/)) {
                                     return 'Email address is invalid.';
                                 }
