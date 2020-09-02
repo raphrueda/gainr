@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { verify } from 'jsonwebtoken';
-import { getEnvVar } from 'src/utils/common';
+import { getEnvVar } from '@utils/common';
 
 import { auth } from './auth/auth.route';
 

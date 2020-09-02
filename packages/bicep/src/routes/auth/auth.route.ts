@@ -9,6 +9,7 @@ import {
     UsernameExistsDBError,
 } from '@db/auth/auth.db.errors';
 import { validate } from '@routes/route.utils';
+import { getEnvVar } from '@utils/common';
 
 import { UsernameExistsError, EmailExistsError, LoginFailedError } from './auth.errors';
 import { generateAccessToken, generateRefreshToken } from './auth.utils';
@@ -72,12 +73,8 @@ auth.post('/refresh_token', (req, res) => {
         res.send('Missing refresh token.');
     }
     try {
-        // TODO Duplicated logic
-        if (!process.env?.REFRESH_TOKEN_SECRET) {
-            console.error('Missing refresh secret.');
-            throw new Error('Something went wrong.');
-        }
-        const payload = verify(token, process.env.REFRESH_TOKEN_SECRET) as any;
+        const refreshTokenSecret = getEnvVar('REFRESH_TOKEN_SECRET');
+        const payload = verify(token, refreshTokenSecret) as any;
         return res.status(200).json(generateAccessToken(payload.id));
     } catch (error) {
         console.log(error);

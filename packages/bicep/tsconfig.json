@@ -5,6 +5,7 @@
     "paths": {
       "@db*": ["src/db*"],
       "@routes*": ["src/routes*"],
+      "@utils*": ["src/utils*"],
     }
   },
   "include": ["src/**/*.ts"]
