@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const axiosConfig: AxiosRequestConfig = {
-    url: 'http://localhost:9002/auth/signup',
+    url: '/auth/signup',
     method: 'POST',
 };
 

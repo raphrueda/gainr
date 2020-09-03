@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const axiosConfig: AxiosRequestConfig = {
-    url: 'http://localhost:9002/auth/login',
+    url: '/auth/login',
     method: 'POST',
     withCredentials: true,
 };
