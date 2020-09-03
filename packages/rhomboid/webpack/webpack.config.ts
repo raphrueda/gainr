@@ -1,6 +1,6 @@
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as path from 'path';
-import { Configuration } from 'webpack';
+import { Configuration, DefinePlugin } from 'webpack';
 
 const packagePath = (relPath) => path.resolve(__dirname, '../', relPath);
 const rootPath = (relPath) => path.resolve(__dirname, '../../..', relPath);
@@ -14,6 +14,9 @@ const webpackConfig: Configuration = {
         new HtmlWebpackPlugin({
             title: 'Gainr',
             template: packagePath('src/app.html'),
+        }),
+        new DefinePlugin({
+            API_BASE_URL: JSON.stringify('http://localhost:9002'),
         }),
     ],
     resolve: {
