@@ -48,6 +48,8 @@ interface UseAxiosOptions {
     initialFetch: boolean;
 }
 
+const axiosInstance = axios.create({ baseURL: API_BASE_URL });
+
 // TODO Review use cases, perhaps mutations need a different promise based approach
 export const useAxios = <TData = any, TError = any>(
     config: AxiosRequestConfig,
@@ -60,10 +62,10 @@ export const useAxios = <TData = any, TError = any>(
         loading: initialFetch,
     });
 
-    const fetch = async (config: AxiosRequestConfig) => {
+    const fetch = async (userConfig: AxiosRequestConfig) => {
         try {
             dispatch({ type: AxiosReducerActionType.Pending });
-            const response: AxiosResponse<TData> = await axios(config);
+            const response: AxiosResponse<TData> = await axiosInstance(userConfig);
             callback?.(response.data);
             dispatch({ type: AxiosReducerActionType.Success, payload: response.data });
         } catch (error) {
