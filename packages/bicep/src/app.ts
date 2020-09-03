@@ -6,13 +6,15 @@ import { config } from 'dotenv';
 
 import { baseRouter } from '@routes/';
 
+config();
+
 const app = express();
 
 //#region Middleware
 app.use(
     cors({
         // TODO figure out the proper way to set this
-        origin: 'http://localhost:8080',
+        origin: process.env.APP_URL,
         credentials: true,
     }),
 );
@@ -30,7 +32,6 @@ app.use(<express.ErrorRequestHandler>((err, req, res, next) => {
 }));
 //#endregion
 
-config();
 const { APP_PORT } = process.env;
 app.listen(APP_PORT, () => {
     console.log(`server started on port ${APP_PORT}...`);
