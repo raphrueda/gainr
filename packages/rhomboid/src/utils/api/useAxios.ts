@@ -18,6 +18,8 @@ enum AxiosReducerActionType {
     Success,
 }
 
+// TODO Refactor this reducer to make it library agnostic
+
 const axiosReducer = <TData, TError>(
     state: AxiosReducerState<TData, TError>,
     action: AxiosReducerAction<TData, TError>,
