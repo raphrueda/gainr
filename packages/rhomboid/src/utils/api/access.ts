@@ -10,3 +10,12 @@ export const getAccessToken = () => {
     }
     return token;
 };
+
+export const isAuthenticated = () => {
+    try {
+        getAccessToken();
+    } catch {
+        return false;
+    }
+    return true;
+};
