@@ -10,7 +10,7 @@
   "author": "Raphael Rueda",
   "license": "MIT",
   "scripts": {
-    "test": "lerna run test"
+    "db": "psql -d gainr_db -U gainr"
   },
   "devDependencies": {
     "lerna": "^3.22.1",
