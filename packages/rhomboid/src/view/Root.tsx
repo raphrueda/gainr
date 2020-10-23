@@ -5,7 +5,6 @@ import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { AppPage } from '@pages/AppPage';
 import { LoginPage } from '@pages/LoginPage';
 import { SignUpPage } from '@pages/SignUpPage';
-import { isAuthenticated } from '@utils/api/access';
 
 import '../styles/main.scss';
 
@@ -39,8 +38,6 @@ const theme = createMuiTheme({
  * Root component for defining routes and providers
  */
 export const Root: React.FunctionComponent = () => {
-    if (!isAuthenticated()) return <Redirect to="/login" />;
-
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
