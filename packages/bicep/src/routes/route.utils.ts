@@ -17,6 +17,7 @@ export const validate = (schema: ObjectSchema): RequestHandler => (req, res, nex
 export const requireAuth: RequestHandler = (req, res, next) => {
     const authToken = req.headers['authorization'];
     if (!authToken) {
+        // TODO Investigate this return behaviour
         return next(new Error('Missing authorization token'));
     }
 
