@@ -1,35 +1,15 @@
 import { Router } from 'express';
-import { verify } from 'jsonwebtoken';
-import { getEnvVar } from '@utils/common';
 
 import { auth } from './auth/auth.route';
+import { requireAuth } from './route.utils';
 
 const router = Router();
 
 // Test route
 router.get('/', (_req, res) => res.send('Yay'));
 // Protected
-router.get(
-    '/supersecret',
-    (req, res, next) => {
-        const authToken = req.headers['authorization'];
-
-        if (!authToken) {
-            throw new Error('Missing authorization token');
-        }
-
-        const accessTokenSecret = getEnvVar('ACCESS_TOKEN_SECRET');
-
-        try {
-            const token = authToken.split(' ')[1];
-            const payload = verify(token, accessTokenSecret) as Record<string, any>;
-            res.locals.userId = payload.userId;
-        } catch (error) {
-            throw new Error('Bad token.');
-        }
-        return next();
-    },
-    (req, res) => res.send(`You've accessed the super secret route, user ${res.locals.userId}`),
+router.get('/supersecret', requireAuth, (req, res) =>
+    res.send(`You've accessed the super secret route, user ${res.locals.userId}`),
 );
 
 router.use('/auth', auth);
